@@ -11,6 +11,7 @@ const Person = (props) => {
       <p>
         I am {props.name} and I am {props.age} years old
       </p>
+      {/* !!! props also trigger a UI render !!! */}
       <span>{props.children}</span>
     </div>
   );
