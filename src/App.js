@@ -5,7 +5,7 @@ import Person from "./Person/Person.js";
 // component must always return JSX or somethig to render
 // class based component
 class App extends Component {
-  // property object (only availible on React components i.e: extends Component)
+  // property object (only availible on React components: extends Component)
   state = {
     persons: [
       { name: "Jaenn", age: 25 },
