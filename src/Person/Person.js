@@ -1,4 +1,6 @@
 import React from "react";
+// css stylesheets must be imported so that webpack can add them to HTML when compiling/building
+import "./Person.css";
 
 // at the most basic level, a react component is a js function that returns JSX (html) code which we want to render
 // JSX is just syntactic sugar for JavaScript, allowing you to write HTMLish code instead of nested React.createElement(...) calls.
@@ -10,7 +12,7 @@ import React from "react";
 // so that the logic of the app can live in a few stateful components rather than been broken into small pieces all over the place
 const Person = (props) => {
   return (
-    <div>
+    <div className="Person">
       {/* passing method references between components as props, so that a component that doesnt have access to the state or a certain method, can change the state from outside or access certain methods */}
       <p onClick={props.click}>
         I am {props.name} and I am {props.age} years old
