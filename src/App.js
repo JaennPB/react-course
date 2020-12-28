@@ -61,5 +61,5 @@ class App extends Component {
   }
 }
 
-// react listens for changes in state and props, it will only trigger a render or 'react' to changes made, and will update UI accordingly
+// react listens for changes in STATE and PROPS, they will TRIGGER a RENDER or 'react' to changes made, and will update UI accordingly
 export default App;
