@@ -5,14 +5,23 @@ import React from "react";
 
 // functional component
 // props is a React object that gives us access to attributes passed in App
+
+// this is also called a stateless component, its good practice to have more stateless components than stateful components
+// so that the logic of the app can live in a few stateful components rather than been broken into small pieces all over the place
 const Person = (props) => {
   return (
     <div>
-      <p>
+      {/* passing method references between components as props, so that a component that doesnt have access to the state or a certain method, can change the state from outside or access certain methods */}
+      <p onClick={props.click}>
         I am {props.name} and I am {props.age} years old
       </p>
       {/* !!! props also trigger a UI render !!! */}
-      <span>{props.children}</span>
+      <p>{props.children}</p>
+      <input
+        type="text"
+        onChange={props.changed}
+        value={props.name} /* setting up two way binding */
+      />
     </div>
   );
 };

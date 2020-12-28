@@ -16,15 +16,26 @@ class App extends Component {
     otherProp: "will be left untouched",
   };
 
-  switchNameHandler = () => {
+  switchNameHandler = (name) => {
     // console.log("was clicked");
     // DON'T DO THIS: this.state.persons[0].name = 'Jay'
     this.setState({
       // will merge only changed values with state
       persons: [
-        { name: "Jay", age: 25 },
+        { name: name, age: 25 },
         { name: "Phoebe", age: 4 },
         { name: "Pau", age: 25 },
+      ],
+    });
+  };
+
+  changeNameHandler = (e) => {
+    this.setState({
+      // will merge only changed values with state
+      persons: [
+        { name: e.target.value, age: 25 },
+        { name: "Phoebe", age: 4 },
+        { name: "Pau", age: 24 },
       ],
     });
   };
@@ -35,10 +46,13 @@ class App extends Component {
       <div className="App">
         <h1>Hi, I am a React app</h1>
         <p>this is really working!</p>
-        <button onClick={this.switchNameHandler}>Change names</button>
+        <button onClick={this.switchNameHandler.bind(this, "JAY!!!")}>
+          Change names
+        </button>
         <Person
           name={this.state.persons[0].name}
           age={this.state.persons[0].age}
+          changed={this.changeNameHandler}
         />
         <Person
           name={this.state.persons[1].name}
@@ -49,6 +63,8 @@ class App extends Component {
         <Person
           name={this.state.persons[2].name}
           age={this.state.persons[2].age}
+          // passing method references between components as props and using bind so that we can call certain method with specified argument
+          click={this.switchNameHandler.bind(this, "JAY!!!")}
         />
       </div>
     );
