@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./App.css";
 import Person from "./Person/Person.js";
 
+// use state can take anything as value, an object (most commonly used), a string, a boolean, an array, etc.
+
 const App = (props) => {
   // useState is used in functional components, use methods are called hooks
   // useState() returns two values/elements (currentState, modifiedState)
@@ -11,18 +13,26 @@ const App = (props) => {
       { name: "Phoebe", age: 4 },
       { name: "Pau", age: 24 },
     ],
-    otherProp: "will be left untouched",
   });
+
+  // in functional components, 'hooks' can be used multiple times, like useState() to set/split different parts of the state
+  const [otherState, setOtherState] = useState({
+    otherProp: "other state",
+  });
+
+  console.log(personsState, otherState);
 
   const switchNameHandler = () => {
     setPersonsState({
-      // will merge only changed values with state
+      // in functinal components useState() actually REPLACES states, unlike setState() from class based components where it is only merged
       // will trigger UI update
       persons: [
         { name: "Jay", age: 25 },
         { name: "Phoebe", age: 4 },
         { name: "Pau", age: 25 },
       ],
+      // can also be set manually, or create a new useState()
+      // otherProp: "other state",
     });
   };
 
