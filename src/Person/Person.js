@@ -1,5 +1,7 @@
 import React from "react";
 // css stylesheets must be imported so that webpack can add them to HTML when compiling/building
+// css will NOT be merged with js, it will only be added to final html compiled file
+// automatic prefixing will happen! by webpack
 import "./Person.css";
 
 // at the most basic level, a react component is a js function that returns JSX (html) code which we want to render
