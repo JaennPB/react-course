@@ -51,6 +51,34 @@ class App extends Component {
       cursor: "pointer",
     };
 
+    let persons = null;
+
+    // rendering elements conditionaly via 'the javascript way'
+    // everytime there is a render, a change in state or props, the whole render function runs from top to bottom
+    // this is why this WORKS, then we just output the variable containing JSX into the return part of the render()
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          <Person
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age}
+            changed={this.changeNameHandler}
+          />
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+          >
+            (is a cat)
+          </Person>
+          <Person
+            name={this.state.persons[2].name}
+            age={this.state.persons[2].age}
+            click={this.switchNameHandler.bind(this, "JAY!!!")}
+          />
+        </div>
+      );
+    }
+
     return (
       // tipicaly everything that should be rendered PER component should be inside it
       <div className="App">
@@ -59,28 +87,7 @@ class App extends Component {
         <button onClick={this.togglePersonsHandler} style={style}>
           Show list
         </button>
-        {/* this is a ternary operator, in jsx anything inside the {} braces, can take any kind of code, except block elements */}
-        {this.state.showPersons ? (
-          <div>
-            <Person
-              name={this.state.persons[0].name}
-              age={this.state.persons[0].age}
-              changed={this.changeNameHandler}
-            />
-            <Person
-              name={this.state.persons[1].name}
-              age={this.state.persons[1].age}
-            >
-              {/* 'children' can be more html or plain text */} (is a cat)
-            </Person>
-            <Person
-              name={this.state.persons[2].name}
-              age={this.state.persons[2].age}
-              // passing method references between components as props and using bind so that we can call certain method with specified argument
-              click={this.switchNameHandler.bind(this, "JAY!!!")}
-            />
-          </div>
-        ) : null}
+        {persons}
       </div>
     );
   }
