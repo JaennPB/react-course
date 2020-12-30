@@ -13,6 +13,7 @@ const Person = (props) => {
         onChange={props.changed}
         value={props.name} /* setting up two way binding */
       />
+      <button onClick={props.delete}>Delete</button>
     </div>
   );
 };
