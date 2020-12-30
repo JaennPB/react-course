@@ -13,22 +13,12 @@ class App extends Component {
     showPersons: false,
   };
 
-  switchNameHandler = (name) => {
-    // DON'T DO THIS: this.state.persons[0].name = 'Jay'
-    this.setState({
-      // will merge only changed values with state
-      persons: [
-        { name: name, age: 25 },
-        { name: "Phoebe", age: 4 },
-        { name: "Pau", age: 25 },
-      ],
-    });
-  };
-
   togglePersonsHandler = () => {
     const show = this.state.showPersons;
     this.setState({ showPersons: !show });
   };
+
+  deletePersonHandler = () => {};
 
   changeNameHandler = (e) => {
     this.setState({
@@ -58,23 +48,12 @@ class App extends Component {
     // this is why this WORKS, then we just output the variable containing JSX into the return part of the render()
     if (this.state.showPersons) {
       persons = (
+        // using map to render lists (arrays dinamically), becuase react is ALL javascript, we can use normal js syntax to conditionally render stuff
+        // for each person, return JSX from <Person /> component using props dinamically, and storing them in 'person' variable to them render in 'return'
         <div>
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}
-            changed={this.changeNameHandler}
-          />
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-          >
-            (is a cat)
-          </Person>
-          <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age}
-            click={this.switchNameHandler.bind(this, "JAY!!!")}
-          />
+          {this.state.persons.map((person) => {
+            return <Person name={person.name} age={person.age} />;
+          })}
         </div>
       );
     }
