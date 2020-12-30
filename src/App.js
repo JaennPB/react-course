@@ -59,6 +59,7 @@ class App extends Component {
         <button onClick={this.togglePersonsHandler} style={style}>
           Show list
         </button>
+        {/* this is a ternary operator, in jsx anything inside the {} braces, can take any kind of code, except block elements */}
         {this.state.showPersons ? (
           <div>
             <Person
