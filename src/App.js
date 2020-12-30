@@ -28,7 +28,6 @@ class App extends Component {
   };
 
   render() {
-    // adding in-line styling to specific dom element
     const style = {
       backgroundColor: "white",
       font: "inherit",
