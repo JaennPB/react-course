@@ -13,6 +13,29 @@ class App extends Component {
     showPersons: false,
   };
 
+  changeNameHandler = (event, key) => {
+    // findng index of person from event listener
+    const personIndex = this.state.persons.findIndex((p) => {
+      return p.key === key;
+    });
+
+    // getting specific object of properties from specified person
+    const person = {
+      ...this.state.persons[personIndex],
+    };
+
+    // changing person.name from object
+    person.name = event.target.value;
+
+    // getting array of persons from state object
+    const personsArr = [...this.state.persons];
+    // setting created person to original persons array from state
+    personsArr[personIndex] = person;
+
+    // updating state persons array with new array
+    this.setState({ persons: personsArr });
+  };
+
   togglePersonsHandler = () => {
     const show = this.state.showPersons;
     this.setState({ showPersons: !show });
@@ -54,6 +77,7 @@ class App extends Component {
                 // using arrow funtion so that the function does not immediately run. instead, we are passing a reference of the method
                 delete={() => this.deletePersonHandler(index)}
                 key={person.key}
+                change={(event) => this.changeNameHandler(event, person.key)}
               />
             );
           })}
