@@ -6,9 +6,9 @@ class App extends Component {
   state = {
     // !!! changes to state trigger UI update !!!
     persons: [
-      { name: "Jaenn", age: 25 },
-      { name: "Phoebe", age: 4 },
-      { name: "Pau", age: 24 },
+      { key: "1a", name: "Jaenn", age: 25 },
+      { key: "2b", name: "Phoebe", age: 4 },
+      { key: "3c", name: "Pau", age: 24 },
     ],
     showPersons: false,
   };
@@ -18,17 +18,13 @@ class App extends Component {
     this.setState({ showPersons: !show });
   };
 
-  deletePersonHandler = () => {};
-
-  changeNameHandler = (e) => {
-    this.setState({
-      // will merge only changed values with state
-      persons: [
-        { name: e.target.value, age: 25 },
-        { name: "Phoebe", age: 4 },
-        { name: "Pau", age: 24 },
-      ],
-    });
+  deletePersonHandler = (personIndex) => {
+    // it is bad practice tu mutate an object, because they are reference types
+    // isntead, create a copy (or spread values into new array)
+    // const items = this.state.persons;
+    const items = [...this.state.persons];
+    items.splice(personIndex, 1);
+    this.setState({ persons: items });
   };
 
   render() {
@@ -51,8 +47,16 @@ class App extends Component {
         // using map to render lists (arrays dinamically), becuase react is ALL javascript, we can use normal js syntax to conditionally render stuff
         // for each person, return JSX from <Person /> component using props dinamically, and storing them in 'person' variable to them render in 'return'
         <div>
-          {this.state.persons.map((person) => {
-            return <Person name={person.name} age={person.age} />;
+          {this.state.persons.map((person, index) => {
+            return (
+              <Person
+                name={person.name}
+                age={person.age}
+                // using arrow funtion so that the function does not immediately run. instead, we are passing a reference of the method
+                delete={() => this.deletePersonHandler(index)}
+                key={person.key}
+              />
+            );
           })}
         </div>
       );
@@ -62,7 +66,7 @@ class App extends Component {
       // tipicaly everything that should be rendered PER component should be inside it
       <div className="App">
         <h1>Hi, I am a React app</h1>
-        <p>this is really working!</p>
+        <p>This is really working!</p>
         <button onClick={this.togglePersonsHandler} style={style}>
           Show list
         </button>
