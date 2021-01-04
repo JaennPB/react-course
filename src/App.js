@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import "./App.css";
-import Person from "./Person/Person.js";
+import React, { Component } from 'react';
+import './App.css';
+import Person from './Person/Person.js';
 
 class App extends Component {
   state = {
     // !!! changes to state trigger UI update !!!
     persons: [
-      { key: "1a", name: "Jaenn", age: 25 },
-      { key: "2b", name: "Phoebe", age: 4 },
-      { key: "3c", name: "Pau", age: 24 },
+      { key: '1a', name: 'Jaenn', age: 25 },
+      { key: '2b', name: 'Phoebe', age: 4 },
+      { key: '3c', name: 'Pau', age: 24 },
     ],
     showPersons: false,
   };
@@ -51,12 +51,15 @@ class App extends Component {
   };
 
   render() {
+    // everytime there is a change in state or props, caused by handlers, render() re-runs everytime, causing all inside of it to also run
+    // this is why we can dinamically change classes, styles, innet texts, etc.
     const style = {
-      backgroundColor: "white",
-      font: "inherit",
-      border: "1px solid blue",
-      padding: "8px",
-      cursor: "pointer",
+      backgroundColor: 'limegreen',
+      color: 'white',
+      font: 'inherit',
+      border: '1px solid green',
+      padding: '8px',
+      cursor: 'pointer',
     };
 
     let persons = null;
@@ -83,13 +86,33 @@ class App extends Component {
           })}
         </div>
       );
+      // dynamically modifying style object to change color if this.state.showPersons is true or false
+      // if true, change to red
+      // if false, stay green
+      style.backgroundColor = 'red';
+    }
+
+    // adding classes dinamically to empty array so that we can pass stringified items as a class
+    let classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push('red');
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('bold');
+    }
+    if (this.state.persons.length >= 3) {
+      classes.push('invisible');
     }
 
     return (
       // tipicaly everything that should be rendered PER component should be inside it
       <div className="App">
         <h1>Hi, I am a React app</h1>
-        <p>This is really working!</p>
+        <p className={classes.join(' ')}>
+          {this.state.persons.length === 0
+            ? 'You have deleted all users'
+            : 'You are deleting users'}
+        </p>
         <button onClick={this.togglePersonsHandler} style={style}>
           Show list
         </button>

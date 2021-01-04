@@ -2,3 +2,15 @@
   text-align: center;
   padding: 30px;
 }
+
+.invisible {
+  visibility: hidden;
+}
+
+.red {
+  color: red;
+}
+
+.bold {
+  font-weight: bold;
+}
