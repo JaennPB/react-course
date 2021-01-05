@@ -81,9 +81,6 @@ class App extends Component {
 
     let persons = null;
 
-    // rendering elements conditionaly via 'the javascript way'
-    // everytime there is a render, a change in state or props, the whole render function runs from top to bottom
-    // this is why this WORKS, then we just output the variable containing JSX into the return part of the render()
     if (this.state.showPersons) {
       persons = (
         // using map to render lists (arrays dinamically), becuase react is ALL javascript, we can use normal js syntax to conditionally render stuff
