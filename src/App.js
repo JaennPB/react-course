@@ -1,7 +1,31 @@
 import React, { Component } from 'react';
-import Radium, { StyleRoot } from 'radium';
+import styled from 'styled-components';
 import './App.css';
 import Person from './Person/Person.js';
+
+// because styled.button will return a react component, and we are using `template literals` we can pass conditions
+// StyledBtn2 is, basically, a react component, so it can receive props, which we can use for our conditions
+// below, based on props.ifColorSwap = if(this.state.showPersons) is true or false, return either 'red' or 'limegreen'
+const StyledBtn2 = styled.button`
+  background-color: ${(props) => (props.ifColorSwap ? 'red' : 'limegreen')};
+  color: white;
+  font: inherit;
+  border: 1px solid green;
+  padding: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.15s;
+  cursor: poiner;
+
+  &:hover {
+    transform: translateY(-2px);
+    background-color: ${(props) => (props.ifColorSwap ? 'salmon' : 'lime')};
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+`;
 
 class App extends Component {
   state = {
@@ -54,22 +78,6 @@ class App extends Component {
   render() {
     // everytime there is a change in state or props, caused by handlers, render() re-runs everytime, causing all inside of it to also run
     // this is why we can dinamically change classes, styles, innet texts, etc.
-    const style = {
-      backgroundColor: 'limegreen',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid green',
-      padding: '8px',
-      cursor: 'pointer',
-      transition: 'all .15s',
-      ':hover': {
-        transform: 'translateY(-2px)',
-        backgroundColor: 'lime',
-      },
-      ':active': {
-        transform: 'translateY(-1px)',
-      },
-    };
 
     let persons = null;
 
@@ -95,14 +103,6 @@ class App extends Component {
           })}
         </div>
       );
-      // dynamically modifying style object to change color if this.state.showPersons is true or false
-      // if true, change to red
-      // if false, stay green
-      style.backgroundColor = 'red';
-      style[':hover'] = {
-        transform: 'translateY(-2px)',
-        backgroundColor: 'crimson',
-      };
     }
 
     // adding classes dinamically to empty array so that we can pass stringified items as a class
@@ -118,22 +118,23 @@ class App extends Component {
     }
 
     return (
-      <StyleRoot>
-        <div className="App">
-          <h1>Hi, I am a React app</h1>
-          <p className={classes.join(' ')}>
-            {this.state.persons.length === 0
-              ? 'You have deleted all users'
-              : 'You are deleting users'}
-          </p>
-          <button onClick={this.togglePersonsHandler} style={style}>
-            Show list
-          </button>
-          {persons}
-        </div>
-      </StyleRoot>
+      <div className="App">
+        <h1>Hi, I am a React app</h1>
+        <p className={classes.join(' ')}>
+          {this.state.persons.length === 0
+            ? 'You have deleted all users'
+            : 'You are deleting users'}
+        </p>
+        <StyledBtn2
+          ifColorSwap={this.state.showPersons}
+          onClick={this.togglePersonsHandler}
+        >
+          Show list
+        </StyledBtn2>
+        {persons}
+      </div>
     );
   }
 }
 
-export default Radium(App);
+export default App;
