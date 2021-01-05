@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Radium, { StyleRoot } from 'radium';
 import './App.css';
 import Person from './Person/Person.js';
 
@@ -60,6 +61,14 @@ class App extends Component {
       border: '1px solid green',
       padding: '8px',
       cursor: 'pointer',
+      transition: 'all .15s',
+      ':hover': {
+        transform: 'translateY(-2px)',
+        backgroundColor: 'lime',
+      },
+      ':active': {
+        transform: 'translateY(-1px)',
+      },
     };
 
     let persons = null;
@@ -90,6 +99,10 @@ class App extends Component {
       // if true, change to red
       // if false, stay green
       style.backgroundColor = 'red';
+      style[':hover'] = {
+        transform: 'translateY(-2px)',
+        backgroundColor: 'crimson',
+      };
     }
 
     // adding classes dinamically to empty array so that we can pass stringified items as a class
@@ -105,21 +118,22 @@ class App extends Component {
     }
 
     return (
-      // tipicaly everything that should be rendered PER component should be inside it
-      <div className="App">
-        <h1>Hi, I am a React app</h1>
-        <p className={classes.join(' ')}>
-          {this.state.persons.length === 0
-            ? 'You have deleted all users'
-            : 'You are deleting users'}
-        </p>
-        <button onClick={this.togglePersonsHandler} style={style}>
-          Show list
-        </button>
-        {persons}
-      </div>
+      <StyleRoot>
+        <div className="App">
+          <h1>Hi, I am a React app</h1>
+          <p className={classes.join(' ')}>
+            {this.state.persons.length === 0
+              ? 'You have deleted all users'
+              : 'You are deleting users'}
+          </p>
+          <button onClick={this.togglePersonsHandler} style={style}>
+            Show list
+          </button>
+          {persons}
+        </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);
