@@ -17,7 +17,7 @@ const StyledBtn = styled.button`
 const Person = (props) => {
   return (
     <div className={classes.Person}>
-      <p onClick={props.click}>
+      <p>
         I am {props.name} and I am {props.age} years old
       </p>
       <input onChange={props.change} value={props.name} />

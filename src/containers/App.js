@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from './Person/Person.js';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   state = {
@@ -43,7 +44,7 @@ class App extends Component {
 
   deletePersonHandler = (personIndex) => {
     // it is bad practice tu mutate an object, because they are reference types
-    // isntead, create a copy (or spread values into new array)
+    // instead, create a copy (or spread values into new array)
     // const items = this.state.persons;
     const items = [...this.state.persons];
     items.splice(personIndex, 1);
@@ -56,53 +57,26 @@ class App extends Component {
     // it REACTS!
 
     let persons = null;
-    let btnClass = '';
 
     if (this.state.showPersons) {
+      // logic has now been delegated to its own component Persons, which renders each Person component
+      // this is BEST PRACTICE: render() in App container should be kept as clean as possible
       persons = (
-        // using map to render lists (arrays dinamically), becuase react is ALL javascript, we can use normal js syntax to conditionally render stuff
-        // for each person, return JSX from <Person /> component using props dinamically, and storing them in 'person' variable to them render in 'return'
-        <div>
-          {this.state.persons.map((person, index) => {
-            return (
-              <Person
-                name={person.name}
-                age={person.age}
-                // using arrow funtion so that the function does not immediately run. instead, we are passing a reference of the method
-                delete={() => this.deletePersonHandler(index)}
-                key={person.key}
-                change={(event) => this.changeNameHandler(event, person.key)}
-              />
-            );
-          })}
-        </div>
+        <Persons
+          persons={this.state.persons}
+          delete={this.deletePersonHandler}
+          change={this.changeNameHandler}
+        />
       );
-      btnClass = classes.Red;
-    }
-
-    // adding classes dinamically to empty array so that we can pass stringified items as a class
-    let assignedClasses = [];
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push(classes.red);
-    }
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push(classes.bold);
-    }
-    if (this.state.persons.length >= 3) {
-      assignedClasses.push(classes.invisible);
     }
 
     return (
       <div className={classes.App}>
-        <h1>Hi, I am a React app</h1>
-        <p className={assignedClasses.join(' ')}>
-          {this.state.persons.length === 0
-            ? 'You have deleted all users'
-            : 'You are deleting users'}
-        </p>
-        <button className={btnClass} onClick={this.togglePersonsHandler}>
-          Show list
-        </button>
+        <Cockpit
+          persons={this.state.persons}
+          showPersons={this.state.showPersons}
+          toggle={this.togglePersonsHandler}
+        />
         {persons}
       </div>
     );
