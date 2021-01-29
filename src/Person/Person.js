@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import './Person.css';
+import classes from './Person.css';
 
 // styled-components return a react component, so the component that you want to style must be wrapped inside this newly created component
 const StyledBtn = styled.button`
@@ -16,7 +16,7 @@ const StyledBtn = styled.button`
 
 const Person = (props) => {
   return (
-    <div className="Person">
+    <div className={classes.Person}>
       <p onClick={props.click}>
         I am {props.name} and I am {props.age} years old
       </p>

@@ -56,7 +56,7 @@ class App extends Component {
     // it REACTS!
 
     let persons = null;
-    let btnClass = [classes.Button];
+    let btnClass = '';
 
     if (this.state.showPersons) {
       persons = (
@@ -77,7 +77,7 @@ class App extends Component {
           })}
         </div>
       );
-      btnClass.push(classes.Red);
+      btnClass = classes.Red;
     }
 
     // adding classes dinamically to empty array so that we can pass stringified items as a class
@@ -100,10 +100,7 @@ class App extends Component {
             ? 'You have deleted all users'
             : 'You are deleting users'}
         </p>
-        <button
-          className={btnClass.join(' ')}
-          onClick={this.togglePersonsHandler}
-        >
+        <button className={btnClass} onClick={this.togglePersonsHandler}>
           Show list
         </button>
         {persons}
