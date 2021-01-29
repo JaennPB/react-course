@@ -14,3 +14,29 @@
 .bold {
   font-weight: bold;
 }
+
+.Button {
+  background-color: green;
+  color: white;
+  font: inherit;
+  border: 1px solid green;
+  padding: 8px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.15s;
+  cursor: poiner;
+}
+
+.Button:hover {
+  background-color: lightgreen;
+  color: black;
+}
+
+.Button.Red {
+  background-color: salmon;
+  color: black;
+}
+
+.Button.Red:hover {
+  background-color: rgb(255, 165, 155);
+}

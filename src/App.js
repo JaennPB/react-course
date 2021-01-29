@@ -1,31 +1,6 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person.js';
-
-// because styled.button will return a react component, and we are using `template literals` we can pass conditions
-// StyledBtn2 is, basically, a react component, so it can receive props, which we can use for our conditions
-// below, based on props.ifColorSwap = if(this.state.showPersons) is true or false, return either 'red' or 'limegreen'
-const StyledBtn2 = styled.button`
-  background-color: ${(props) => (props.ifColorSwap ? 'red' : 'limegreen')};
-  color: white;
-  font: inherit;
-  border: 1px solid green;
-  padding: 8px;
-  cursor: pointer;
-  outline: none;
-  transition: all 0.15s;
-  cursor: poiner;
-
-  &:hover {
-    transform: translateY(-2px);
-    background-color: ${(props) => (props.ifColorSwap ? 'salmon' : 'lime')};
-  }
-
-  &:active {
-    transform: translateY(-1px);
-  }
-`;
 
 class App extends Component {
   state = {
@@ -78,8 +53,10 @@ class App extends Component {
   render() {
     // everytime there is a change in state or props, caused by handlers, render() re-runs everytime, causing all inside of it to also run
     // this is why we can dinamically change classes, styles, innet texts, etc.
+    // it REACTS!
 
     let persons = null;
+    let btnClass = [classes.Button];
 
     if (this.state.showPersons) {
       persons = (
@@ -100,34 +77,35 @@ class App extends Component {
           })}
         </div>
       );
+      btnClass.push(classes.Red);
     }
 
     // adding classes dinamically to empty array so that we can pass stringified items as a class
-    let classes = [];
+    let assignedClasses = [];
     if (this.state.persons.length <= 2) {
-      classes.push('red');
+      assignedClasses.push(classes.red);
     }
     if (this.state.persons.length <= 1) {
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     }
     if (this.state.persons.length >= 3) {
-      classes.push('invisible');
+      assignedClasses.push(classes.invisible);
     }
 
     return (
-      <div className="App">
+      <div className={classes.App}>
         <h1>Hi, I am a React app</h1>
-        <p className={classes.join(' ')}>
+        <p className={assignedClasses.join(' ')}>
           {this.state.persons.length === 0
             ? 'You have deleted all users'
             : 'You are deleting users'}
         </p>
-        <StyledBtn2
-          ifColorSwap={this.state.showPersons}
+        <button
+          className={btnClass.join(' ')}
           onClick={this.togglePersonsHandler}
         >
           Show list
-        </StyledBtn2>
+        </button>
         {persons}
       </div>
     );
