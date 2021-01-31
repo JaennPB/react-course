@@ -16,7 +16,7 @@ const StyledBtn = styled.button`
 
 class Person extends Component {
   render() {
-    console.log('[Person.js] rendering...');
+    console.log('[Person.js] rendering... Person');
     return (
       <div className={classes.Person}>
         <p>
