@@ -22,7 +22,7 @@ const Cockpit = (props) => {
 
   return (
     <div className={classes.Cockpit}>
-      <h1>Hi, I am a React app</h1>
+      <h1>{props.title}</h1>
       <p className={assignedClasses.join(' ')}>
         {props.persons.length === 0
           ? 'You have deleted all users'

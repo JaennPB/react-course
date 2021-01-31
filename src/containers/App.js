@@ -4,6 +4,11 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor #1');
+  }
+
   state = {
     // !!! changes to state trigger UI update !!!
     persons: [
@@ -13,6 +18,11 @@ class App extends Component {
     ],
     showPersons: false,
   };
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps #2', props);
+    return state;
+  }
 
   changeNameHandler = (event, key) => {
     // findng index of person from event listener
@@ -51,10 +61,16 @@ class App extends Component {
     this.setState({ persons: items });
   };
 
+  componentDidMount() {
+    console.log('[App.js] componentDidMount #4');
+  }
+
   render() {
     // everytime there is a change in state or props, caused by handlers, render() re-runs everytime, causing all inside of it to also run
     // this is why we can dinamically change classes, styles, innet texts, etc.
     // it REACTS!
+
+    console.log('[App.js] render() #3');
 
     let persons = null;
 
@@ -73,6 +89,7 @@ class App extends Component {
     return (
       <div className={classes.App}>
         <Cockpit
+          title={this.props.title}
           persons={this.state.persons}
           showPersons={this.state.showPersons}
           toggle={this.togglePersonsHandler}

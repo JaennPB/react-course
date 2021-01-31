@@ -15,6 +15,7 @@ const StyledBtn = styled.button`
 `;
 
 const Person = (props) => {
+  console.log('[Person.js] rendering...');
   return (
     <div className={classes.Person}>
       <p>
