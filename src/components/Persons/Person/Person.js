@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import classes from './Person.css';
 
@@ -14,17 +14,19 @@ const StyledBtn = styled.button`
   font-weight: bold;
 `;
 
-const Person = (props) => {
-  console.log('[Person.js] rendering...');
-  return (
-    <div className={classes.Person}>
-      <p>
-        I am {props.name} and I am {props.age} years old
-      </p>
-      <input onChange={props.change} value={props.name} />
-      <StyledBtn onClick={props.delete}>Delete</StyledBtn>
-    </div>
-  );
-};
+class Person extends Component {
+  render() {
+    console.log('[Person.js] rendering...');
+    return (
+      <div className={classes.Person}>
+        <p>
+          I am {this.props.name} and I am {this.props.age} years old
+        </p>
+        <input onChange={this.props.change} value={this.props.name} />
+        <StyledBtn onClick={this.props.delete}>Delete</StyledBtn>
+      </div>
+    );
+  }
+}
 
 export default Person;
