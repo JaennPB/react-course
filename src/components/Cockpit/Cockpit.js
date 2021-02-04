@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import classes from './Cockpit.css';
 
-const Cockpit = (props) => {
+const cockpit = (props) => {
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
     // faking HTTP request
@@ -36,13 +36,13 @@ const Cockpit = (props) => {
 
   // assigning classes into empty array to pass as string
   let assignedClasses = [];
-  if (props.persons.length >= 3) {
+  if (props.personsLength >= 3) {
     assignedClasses.push(classes.invisible);
   }
-  if (props.persons.length <= 2) {
+  if (props.personsLength <= 2) {
     assignedClasses.push(classes.red);
   }
-  if (props.persons.length <= 1) {
+  if (props.personsLength <= 1) {
     assignedClasses.push(classes.bold);
   }
 
@@ -50,7 +50,7 @@ const Cockpit = (props) => {
     <div className={classes.Cockpit}>
       <h1>{props.title}</h1>
       <p className={assignedClasses.join(' ')}>
-        {props.persons.length === 0
+        {props.personsLength === 0
           ? 'You have deleted all users'
           : 'You are deleting users'}
       </p>
@@ -61,4 +61,5 @@ const Cockpit = (props) => {
   );
 };
 
-export default Cockpit;
+// When a component is wrapped in React.memo(), React renders the component and memoizes the result. Before the next render, if the new props are the same, React reuses the memoized result skipping the next rendering.
+export default React.memo(cockpit);

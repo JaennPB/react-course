@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import Person from './Person/Person';
+// PureComponent is exactly the same as Component except that it handles the shouldComponentUpdate method for you. When props or state changes, PureComponent will do a shallow comparison on both props and state.
 
-class Persons extends Component {
-  // static getDerivedStateFromProps(props, state) {
-  //   console.log('[Persons.js] getDerivedStateFromProps #1');
+class Persons extends PureComponent {
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('[Persons.js] shouldComponentUpdate');
+  //   if (
+  //     nextProps.persons !== this.props.persons ||
+  //     nextProps.delete !== this.props.delete ||
+  //     nextProps.change !== this.props.change
+  //   ) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
   // }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('[Persons.js] shouldComponentUpdate');
-    if (nextProps.persons !== this.props.persons) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
     console.log('[Persons.js] getSnapshotBeforeUpdate');

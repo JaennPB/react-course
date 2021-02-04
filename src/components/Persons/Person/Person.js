@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import classes from './Person.css';
+import WithClass from '../../../hoc/WithClass';
 
 // styled-components return a react component, so the component that you want to style must be wrapped inside this newly created component
 const StyledBtn = styled.button`
@@ -18,14 +19,18 @@ class Person extends Component {
   render() {
     console.log('[Person.js] rendering... Person');
     return (
-      <div className={classes.Person}>
-        <p>
-          I am {this.props.name} and I am {this.props.age} years old
-        </p>
-        <input onChange={this.props.change} value={this.props.name} />
-        <StyledBtn onClick={this.props.delete}>Delete</StyledBtn>
-      </div>
+      <React.Fragment>
+        <WithClass classes={classes.Person}>
+          <p>
+            I am {this.props.name} and I am {this.props.age} years old
+          </p>
+          <input onChange={this.props.change} value={this.props.name} />
+          <StyledBtn onClick={this.props.delete}>Delete</StyledBtn>
+        </WithClass>
+        <div>Adjecent JSX</div>
+      </React.Fragment>
     );
+    // react fragment is a HOC (higher order component and under the hood, it acts as a wrapping container for jsx, it will not render in the real DOM!)
   }
 }
 
