@@ -8,6 +8,11 @@ import React from 'react';
 // AuthContext.Provider provides all child elements with a context object
 // AuthContext.Consumer lets us consume the object with 'conext' that the provider provided
 
+// **********************************************************
+// NEW MODERN WAY OF USING CONTEXT API
+// useContext hook (functional components)
+// contextType static method (classed bassed components)
+
 const authContext = React.createContext({
   authenticated: false,
   login: () => {},

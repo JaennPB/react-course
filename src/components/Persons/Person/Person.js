@@ -23,8 +23,13 @@ class Person extends Component {
     this.inputElRef = React.createRef();
   }
 
+  // short and modern way of using context API
+  // class component now provided with context.example
+  static contextType = AuthContext;
+
   componentDidMount() {
     this.inputElRef.current.focus();
+    console.log(this.context.authenticated);
   }
 
   render() {
@@ -32,11 +37,11 @@ class Person extends Component {
     return (
       <React.Fragment>
         <WithClass classes={classes.Person}>
-          <AuthContext.Consumer>
-            {(context) =>
-              context.authenticated ? <p>Logged in!</p> : <p>Please log in!</p>
-            }
-          </AuthContext.Consumer>
+          {this.context.authenticated ? (
+            <p>Logged in!</p>
+          ) : (
+            <p>Please log in!</p>
+          )}
           <p>
             I am {this.props.name} and I am {this.props.age} years old
           </p>

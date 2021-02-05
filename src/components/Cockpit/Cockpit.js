@@ -1,9 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import classes from './Cockpit.css';
 import AuthContext from '../../context/auth-context';
 
 const cockpit = (props) => {
+  // =============================================
+  // useRef and useContext hooks
   const toggleBtnRef = useRef(null);
+  const context = useContext(AuthContext);
+
   // =============================================
   // react HOOK (useEffect)
   // the useEffect Hook is componentDidMount, componentDidUpdate, and componentWillUnmount combined
@@ -29,7 +33,6 @@ const cockpit = (props) => {
     // in useEffect, return always runs first before the main body of the function
   });
 
-  // condtitionally adding css class into variable so that it can be passed as a class name
   let btnClass = '';
   if (props.showPersons) {
     btnClass = classes.Red;
@@ -58,9 +61,7 @@ const cockpit = (props) => {
       <button ref={toggleBtnRef} className={btnClass} onClick={props.toggle}>
         Show list
       </button>
-      <AuthContext.Consumer>
-        {(context) => <button onClick={context.login}>Log in</button>}
-      </AuthContext.Consumer>
+      <button onClick={context.login}>Log in</button>
     </div>
   );
 };
