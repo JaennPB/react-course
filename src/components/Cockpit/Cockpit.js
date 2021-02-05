@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classes from './Cockpit.css';
 
 const cockpit = (props) => {
+  const toggleBtnRef = useRef(null);
+  // =============================================
+  // react HOOK (useEffect)
+  // the useEffect Hook is componentDidMount, componentDidUpdate, and componentWillUnmount combined
+  // by default, it runs both after the first render and after every update
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
-    // faking HTTP request
-    const timer = setTimeout(() => {
-      alert('Cockpit mounted...');
-    }, 1000);
     // Use effect combines ComponentDidMount and componentDidUpdate. it takes two arguments: (function, dependecy)
     // dependecy is the element or component that should run useEffect (componentDidUpdate)
     // by setting an empty array you are choosing only to use componentDidMount [] (will only run once cockpit 'mounts')
+    toggleBtnRef.current.click();
     return () => {
       console.log('[Cockpit.js] Clean up work in useEffect');
-      clearTimeout(timer);
       // adding a return in a useEffect function adds the funtionality to do some cleanup work (componentWillUnmount)
-      // everything inside this funtion block will be executed before the main useEffect but AFTER the last render (when removed)
     };
   }, []);
 
@@ -24,7 +24,7 @@ const cockpit = (props) => {
     return () => {
       console.log('[Cockpit.js] Clean up work in 2ND useEffect');
     };
-    // if second argument is left empty, useEffect will run for every render cycle
+    // if second argument is left empty, useEffect will run for every render and update cycle
     // in useEffect, return always runs first before the main body of the function
   });
 
@@ -54,9 +54,10 @@ const cockpit = (props) => {
           ? 'You have deleted all users'
           : 'You are deleting users'}
       </p>
-      <button className={btnClass} onClick={props.toggle}>
+      <button ref={toggleBtnRef} className={btnClass} onClick={props.toggle}>
         Show list
       </button>
+      <button onClick={props.authentication}>Log in</button>
     </div>
   );
 };

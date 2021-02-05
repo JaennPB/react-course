@@ -3,6 +3,9 @@ import Person from './Person/Person';
 // PureComponent is exactly the same as Component except that it handles the shouldComponentUpdate method for you. When props or state changes, PureComponent will do a shallow comparison on both props and state.
 
 class Persons extends PureComponent {
+  // =================================
+  // component lifecycles hooks
+
   // shouldComponentUpdate(nextProps, nextState) {
   //   console.log('[Persons.js] shouldComponentUpdate');
   //   if (
@@ -22,11 +25,15 @@ class Persons extends PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+    // runs after component has finished loading im the DOM (after render())
+    // similar to componentDidMount, great palce to make API requests
     console.log('[Persons.js] componentDidUpdate');
     console.log(snapshot);
   }
 
   componentWillUnmount() {
+    // runs right BEFORE a component is removed from the DOM
+    // great fot cleanup work: removing eventlisteners, canceling network requests, etc
     console.log('[Persons.js] componentWillUnmount');
   }
 
@@ -42,6 +49,7 @@ class Persons extends PureComponent {
           delete={() => this.props.delete(index)}
           key={person.key}
           change={(event) => this.props.change(event, person.key)}
+          isAuth={this.props.isAuthenticated}
         />
       );
     });
