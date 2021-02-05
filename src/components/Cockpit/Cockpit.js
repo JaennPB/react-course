@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import classes from './Cockpit.css';
+import AuthContext from '../../context/auth-context';
 
 const cockpit = (props) => {
   const toggleBtnRef = useRef(null);
@@ -57,10 +58,14 @@ const cockpit = (props) => {
       <button ref={toggleBtnRef} className={btnClass} onClick={props.toggle}>
         Show list
       </button>
-      <button onClick={props.authentication}>Log in</button>
+      <AuthContext.Consumer>
+        {(context) => <button onClick={context.login}>Log in</button>}
+      </AuthContext.Consumer>
     </div>
   );
 };
+
+// AuthContext.Consumer lets us consume the object that the provider provided
 
 // When a component is wrapped in React.memo(), React renders the component and memoizes the result. Before the next render, if the new props are the same, React reuses the memoized result skipping the next rendering.
 export default React.memo(cockpit);

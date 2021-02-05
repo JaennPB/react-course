@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import classes from './Person.css';
 import WithClass from '../../../hoc/WithClass';
+import AuthContext from '../../../context/auth-context';
 
 // styled-components return a react component, so the component that you want to style must be wrapped inside this newly created component
 const StyledBtn = styled.button`
@@ -31,7 +32,11 @@ class Person extends Component {
     return (
       <React.Fragment>
         <WithClass classes={classes.Person}>
-          {this.props.isAuth ? <p>Logged in!</p> : <p>Please log in!</p>}
+          <AuthContext.Consumer>
+            {(context) =>
+              context.authenticated ? <p>Logged in!</p> : <p>Please log in!</p>
+            }
+          </AuthContext.Consumer>
           <p>
             I am {this.props.name} and I am {this.props.age} years old
           </p>

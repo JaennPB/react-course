@@ -16,6 +16,10 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import withAddedClass from '../hoc/withAddedClass';
 
 // *************************************************
+// context
+import AuthContext from '../context/auth-context';
+
+// *************************************************
 // main App component (class component)
 class App extends Component {
   // ==================================
@@ -144,19 +148,27 @@ class App extends Component {
         >
           Unmount Cockpit
         </button>
-        {this.state.showCockpit ? (
-          <Cockpit
-            title={this.props.title}
-            personsLength={this.state.persons.length}
-            showPersons={this.state.showPersons}
-            toggle={this.togglePersonsHandler}
-            authentication={this.authenticationHandler}
-          />
-        ) : null}
-        {persons}
+        <AuthContext.Provider
+          value={{
+            authenticated: this.state.isAuthenticated,
+            login: this.authenticationHandler,
+          }}
+        >
+          {this.state.showCockpit ? (
+            <Cockpit
+              title={this.props.title}
+              personsLength={this.state.persons.length}
+              showPersons={this.state.showPersons}
+              toggle={this.togglePersonsHandler}
+            />
+          ) : null}
+          {persons}
+        </AuthContext.Provider>
       </div>
     );
   }
 }
+
+// AuthContext.Provider provides all child elements with a context object
 
 export default withAddedClass(App, classes.App);

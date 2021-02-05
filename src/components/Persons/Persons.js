@@ -49,7 +49,6 @@ class Persons extends PureComponent {
           delete={() => this.props.delete(index)}
           key={person.key}
           change={(event) => this.props.change(event, person.key)}
-          isAuth={this.props.isAuthenticated}
         />
       );
     });
